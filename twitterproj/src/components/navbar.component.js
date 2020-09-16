@@ -10,17 +10,18 @@ export default class Navbar extends Component{
 <Link to="/score" className="nav-link">Score</Link>
 </li>*/
 
+//https://stackoverflow.com/questions/34582405/react-wont-load-local-images
+//finally
+
+
   render() {
     return(
-      <nav className="navbar navbar-expand-lg">
-        <Link to="/" className="navbar-brand">MuskYe</Link>
-<img src="/assets/muskye.png"></img>
-        <div className="collapse navbar-collapse">
-        <ul className="navbar-nav mr-auto">
+      <nav className="navbar">
+  <a className="navbar-brand" href="#">
+  <img style={{marginBottom: -65, marginTop: -20, marginLeft: 10}} src={require('./muskye.png')} height="150px"/>
+  </a>
+</nav>
 
-        </ul>
-        </div>
-        </nav>
     );
   }
 }
