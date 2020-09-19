@@ -4,7 +4,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Navbar from "./components/navbar.component";
 import SelectionList from './components/selectionlist.component';
-import ScoreList from './components/scorelist.component';
 
 
 //For Postman OAuth1.0 was used --> add authorization data: "Request Headers" and "Encode the parameters in the Authorization Header" was checked
