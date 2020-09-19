@@ -5,29 +5,23 @@ import { TwitterMentionButton } from 'react-twitter-embed';
 import "typeface-montserrat";
 import Tweet from './tweet';
 
-
 export default class SelectionList extends Component implements Tweet{
 
-  /*constructor() {
-    //this.tweet = new Tweet();
-    super();
-    this.tweet = new Tweet();
-  }*/
   constructor(props) {
     super(props);
-    this.elon = Tweet.getTweet("elonmusk");
+    this.state = {
+      elon: "",
+      kanye: "",
+    };
   }
 
-  state = {}
 
-  componentDidMount() {
-    console.log(this.elon);
-    //call Tweet class here
-    //var elonmusk = this.tweet.getTweet("elonmusk");
-    //var kanyewest = this.tweet.getTweet("kanyewest");
-    //console.log(elonmusk);
-    //console.log(Tweet.getTweet("elonmusk"));
 
+  async componentDidMount() {
+    let elonResult = await Tweet.getTweet("elonmusk");
+    let kanyeResult = await Tweet.getTweet("kanyewest");
+    var res = elonResult[0].text;
+    this.setState({elon: res});
   }
 
 /*
@@ -44,7 +38,8 @@ export default class SelectionList extends Component implements Tweet{
         </Row>
 
         <Row horizontal="center">
-//////////
+
+        <p>{this.state.elon}</p>
 
         </Row>
 
