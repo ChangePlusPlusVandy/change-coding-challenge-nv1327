@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Row } from 'simple-flexbox'; //Flexbox
-//import ReactCSSTransitionGroup from 'react-transition-group'; // ES6
 import { TwitterMentionButton } from 'react-twitter-embed'; //Widget for Twitter mentions
 import Tweet from './tweet'; //import Tweet object
 
@@ -27,7 +26,7 @@ export default class SelectionList extends Component implements Tweet {
       this.setState({score: this.state.score-1});
       this.setState({display: "Incorrect!    -1"});
     }
-    setTimeout(function(){
+    setTimeout(function(){ //timing of feedback to user
         this.handleCalc();
     }.bind(this),1500);
 
@@ -42,9 +41,13 @@ export default class SelectionList extends Component implements Tweet {
       this.setState({score: this.state.score-1});
       this.setState({display: "Incorrect!    -1"});
     }
-    setTimeout(function(){
+    setTimeout(function(){ //timing of feedback to user
         this.handleCalc();
     }.bind(this),1500);
+  }
+
+  handleReset = () => { //function called when reset button is pressed
+    this.setState({score: 0});
   }
 
 //function initially pulls data from Tweet and Twitter API and is not called again for performance reasons
@@ -53,7 +56,7 @@ export default class SelectionList extends Component implements Tweet {
     let kanyeResult = await Tweet.getTweet("kanyewest"); //request all filtered tweets from Tweet object using "kanyewest" as username parameter
     this.setState({elonTweets: elonResult}); //set the object equal to a state value so it can be used globally
     this.setState({kanyeTweets: kanyeResult}); //set the object equal to a state value so it can be used globally
-    this.handleCalc();
+    this.handleCalc(); //execute processing function below
   }
 
 //waits for handleRefresh() to set state, then takes those global state values and processes them, then renders them
@@ -81,18 +84,19 @@ async handleCalc() {
     this.handleRefresh();
   }
 
-
 //where JSX is rendered (can only take state values as the changing ones)
   render() {
     return (
       <div>
         <Row horizontal = "end">
-          <h1 className="mb-4"style={{ fontSize: 25, fontWeight: "normal", marginTop: -95, marginRight: 55}}>Score: {this.state.score}</h1>
+            <h1 className="mb-4"style={{ fontSize: 25, fontWeight: "normal", marginTop: -95, marginRight: 55}}>Score: {this.state.score}</h1>
         </Row>
+
 
         <Row horizontal = "center">
             <h1 className="mb-4"style={{ marginTop: -20}}>Who Tweeted This?</h1>
         </Row>
+
 
         <Row horizontal="center">
           <p style={{ fontSize: 20, marginTop: 235, marginBottom: 235}}>{this.state.display}</p>
@@ -101,11 +105,12 @@ async handleCalc() {
         <Row horizontal = "space-evenly">
           <img src="https://i2.wp.com/www.celebrity-cutouts.com/wp-content/uploads/2020/01/elon-musk-smile-celebrity-mask.png?resize=450%2C500&ssl=1" className="img-fluid" alt="Responsive"  width="80px"></img>
             <button onClick={this.handleElon} type="button" className="btn btn-outline-primary btn-lg col-md-4 mr-2 mt-4 mb-3">Elon</button>
+            <button onClick={this.handleReset} type="button" style={{marginTop: 23, height: "55px"}} className="btn btn-outline-danger btn-lg">Reset</button>
             <button onClick={this.handleKanye} type="button" className="btn btn-outline-primary btn-lg col-md-4 ml-2 mt-4 mr-2 mb-3">Kanye</button>
             <img src="https://cdn11.bigcommerce.com/s-balh3740/images/stencil/1280x1280/products/26297/46281/KanyeWest__85697.1538500006.jpg?c=2" className="img-fluid" alt="Responsive"  width="65px"></img>
         </Row>
 
-        <Row horizontal = "space-evenly">
+        <Row horizontal = "space-around">
           <TwitterMentionButton
             screenName={'elonmusk'}
           />
